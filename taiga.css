@@ -1,0 +1,113 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+#mapdiv {
+  padding: 0;
+  margin: 0;
+  border: 1px solid #AAA;
+}
+#menudiv {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  padding: 0;
+  border: 1px solid #AAA;
+}
+#titlelist {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+#title {
+  font-size: larger;
+  padding: 2px;
+  margin: 0px;
+  border-bottom: 2px solid #AAA;
+  width: 100%;
+}
+#titlelist a {
+  text-decoration: none;
+}
+#titlelist a:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
+@media all and (orientation: portrait) {
+  #mapdiv {
+    position: absolute;
+    top: 0;
+    height: 70%;
+    width: 100%;
+  }
+  #menudiv {
+    position: absolute;
+    bottom: 0;
+    height: 30%;
+    width: 100%;
+  }
+}
+@media all and (orientation: landscape) {
+  #menudiv {
+    position: absolute;
+    left : 0;
+    height: 100%;
+    width: 30%;
+  }
+  #mapdiv {
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 70%;
+  }
+}
+#map {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+a:link {
+  text-decoration: none;
+}
+#headerDiv {
+  position: absolute;
+  top: 1.1em;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+}
+#headerSpan {
+  font-size: large;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #AAA;
+  background-color: #FFF;
+  padding: 0.4em 0.8em 0.4em 0.8em;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+.leaflet-popup-content {
+  font-size: larger;
+}
+.marker-cluster-small {
+  background-color: rgba(181, 226, 140, 0.9);
+}
+.marker-cluster-small div {
+  background-color: rgba(110, 204, 57, 0.9);
+}
+.marker-cluster-medium {
+  background-color: rgba(241, 211, 87, 0.9);
+}
+.marker-cluster-medium div {
+  background-color: rgba(240, 194, 12, 0.9);
+}
+.marker-cluster-large {
+  background-color: rgba(253, 156, 115, 0.9);
+}
+.marker-cluster-large div {
+  background-color: rgba(241, 128, 23, 0.9);
+}

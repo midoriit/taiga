@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta charset="utf-8" />
+  <title>大河巡礼 - 大河ドラマ聖地巡礼マップ</title>
+  <link rel="stylesheet" href="ext/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="ext/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="ext/leaflet.css" type="text/css">
+  <link rel="stylesheet" href="ext/MarkerCluster.css" type="text/css">
+  <link rel="stylesheet" href="ext/MarkerCluster.Default.css" type="text/css">
+  <link rel="stylesheet" href="ext/easy-button.css" type="text/css">
+  <link rel="stylesheet" href="ext/leaflet-vector-markers.css">
+  <link rel="stylesheet" href="taiga.css" type="text/css" />
+  <script type="text/javascript" src="ext/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="ext/bootstrap.min.js"></script>
+  <script type="text/javascript" src="ext/leaflet.js"></script>
+  <script type="text/javascript" src="ext/leaflet.markercluster-src.js"></script>
+  <script type="text/javascript" src="ext/easy-button.js"></script>
+  <script type="text/javascript" src="ext/leaflet-vector-markers.js"></script>
+  <script type="text/javascript" src="taiga.js"></script>
+</head>
+<body id="body">
+  <div id="menudiv">
+    <div id="titlelist"><div id="title"><strong>大河巡礼－大河ドラマ聖地巡礼マップ</strong></div></div>
+  </div>
+  <div id="mapdiv">
+    <div id="headerDiv"><span id="headerSpan">大河巡礼－大河ドラマ聖地巡礼マップ</span></div>
+  </div>
+  <div id="about" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">このサイトについて</h4>
+        </div>
+        <div class="modal-body">
+          <p>当サイトは、歴代の大河ドラマの登場人物にゆかりのある（かもしれない）事物をマップ上に示し、<a href="https://ja.wikipedia.org" target="_blank">ウィキペディア日本語版</a>の該当ページへのリンクを提供するものです。<p>
+          <p>大河ドラマ作品とその登場人物についてのデータは、<a href="http://lodcu.cs.chubu.ac.jp/SparqlEPCU/project.jsp?projectID=taiga" target=_blank">SparqlEPCU</a>経由で<a href="http://gloria.ciao.jp/Taiga/Tree/00_datalist.php" target=_blank">大河配役LOD</a>を利用しています。</p>
+          <p>登場人物ゆかりの事物は、ウィキペディア日本語版における記事のリンク関係を用いて<a href="http://ja.dbpedia.org/" target="_blank">DBpedia Japanese</a>から取得しています。
+            <ul class="fa-ul">
+              <li><i class="fa fa-user fa-li"></i>登場人物の記事からリンクしている事物</li>
+              <li><i class="fa fa-search fa-li"></i>登場人物の記事へリンクしている事物</li>
+            </ul>
+          </p>
+          <p>当サイトは、SparqlEPCUまたはDBpedia Japaneseのサービスが停止しているときには機能しません。また、情報の信頼性について一切の保証を致しません。</p>
+          <p>当サイトは以下のオープンソースソフトウェアを利用しています。
+            <ul>
+              <li><a href="http://leafletjs.com/" target="_blank">Leaflet</a> (2-Clause BSD)
+              <li><a href="https://github.com/Leaflet/Leaflet.markercluster" target="_blank">Leaflet.markercluster</a> (MIT license)
+              <li><a href="https://github.com/CliffCloud/Leaflet.EasyButton" target="_blank">Leaflet.EasyButton</a> (MIT license)
+              <li><a href="https://github.com/hiasinho/Leaflet.vector-markers" target="_blank">Leaflet.vector-markers</a> (MIT license)
+              <li><a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> (MIT license)
+              <li><a href="http://jquery.com/" target="_blank">jQuery</a> (MIT license)
+              <li><a href="https://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a> (SIL OFL 1.1)
+            </ul>
+          </p>
+          <p>Copyright &copy; 2017 <a href="https://midoriit.com" target="_blank">Midori IT Office, LLC.</a></p>
+          <p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />この 作品 は <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">クリエイティブ・コモンズ 表示 - 継承 4.0 国際 ライセンスの下に提供されています。</a></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
