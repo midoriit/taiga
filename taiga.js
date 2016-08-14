@@ -103,10 +103,11 @@ function showMap(nth, label, id){
 // 人物からリンクしている地物
 function showPoiA(uri){
   var sparql = 
-    'SELECT DISTINCT ?page ?geo WHERE {' +
+    'SELECT DISTINCT ?page ?geo ?abst WHERE {' +
     '<' + uri + '> dbpedia-owl:wikiPageWikiLink ?page;' +
     'rdf:type foaf:Person.' +
-    '?page georss:point ?geo.' +
+    '?page georss:point ?geo;' +
+    'dbpedia-owl:abstract ?abst.' +
     '}';
   var query = {
     query : sparql,
@@ -120,13 +121,17 @@ function showPoiA(uri){
       var wikipage = list[i].page.value.replace("http://ja.dbpedia.org/resource/", "https://ja.wikipedia.org/wiki/");
       var fromname = uri.replace("http://ja.dbpedia.org/resource/", "");
       var frompage = uri.replace("http://ja.dbpedia.org/resource/", "https://ja.wikipedia.org/wiki/");
-      var marker = L.marker([latlng[0], latlng[1]], {
+      var abst = list[i].abst.value;
+      marker = L.marker([latlng[0], latlng[1]], {
         icon : L.VectorMarkers.icon({icon: 'user', markerColor: '#AAF'}),
         title: wikiname
       }).addTo(markerClusters).bindPopup(
         '<a href="' + frompage + '" target="_blank">' + fromname + '</a>ゆかりの？ ' + 
         '<a href="' + wikipage + '" target="_blank">' + 
-        wikiname + '</a>');
+        wikiname + '</a>' +
+        '<div id="wk_abst">' +
+        abst.substr(0, abst.indexOf('。')+1) + 
+        '（<a href="' + list[i].page.value + '" target="_blank">DBpedia</a>）</div>');
     }
   });
 }
@@ -134,10 +139,11 @@ function showPoiA(uri){
 // 人物へリンクしている地物
 function showPoiB(uri){
   var sparql = 
-    'SELECT DISTINCT ?page ?geo WHERE {' +
+    'SELECT DISTINCT ?page ?geo ?abst WHERE {' +
     '<' + uri + '> rdf:type foaf:Person.' +
     '?page dbpedia-owl:wikiPageWikiLink <' + uri + '>;' +
-    'georss:point ?geo.' +
+    'georss:point ?geo;' +
+    'dbpedia-owl:abstract ?abst.' +
     '}';
   var query = {
     query : sparql,
@@ -150,13 +156,17 @@ function showPoiB(uri){
       var wikiname = list[i].page.value.replace("http://ja.dbpedia.org/resource/", "");
       var wikipage = list[i].page.value.replace("http://ja.dbpedia.org/resource/", "https://ja.wikipedia.org/wiki/");
       var fromname = uri.replace("http://ja.dbpedia.org/resource/", "");
-      var marker = L.marker([latlng[0], latlng[1]], {
+      var abst = list[i].abst.value;
+      marker = L.marker([latlng[0], latlng[1]], {
         icon : L.VectorMarkers.icon({icon: 'search', markerColor: '#AAF'}),
         title: wikiname
       }).addTo(markerClusters).bindPopup(
         '<strong>' + fromname + '</strong>ゆかりの？ ' + 
         '<a href="' + wikipage + '" target="_blank">' + 
-        wikiname + '</a>');
+        wikiname + '</a>' +
+        '<div id="wk_abst">' +
+        abst.substr(0, abst.indexOf('。')+1) + 
+        '（<a href="' + list[i].page.value + '" target="_blank">DBpedia</a>）</div>');
     }
   });
 }
