@@ -89,6 +89,10 @@ a:link {
   border-radius: 10px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
 }
+#headerSpan a:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
 #wk_abst {
   border-width: 1px;
   border-style: solid;
@@ -100,6 +104,10 @@ a:link {
 
 .leaflet-popup-content {
   font-size: larger;
+}
+.leaflet-popup-content a:hover {
+  cursor: pointer;
+  font-weight: bold;
 }
 .marker-cluster-small {
   background-color: rgba(181, 226, 140, 0.9);

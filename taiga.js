@@ -11,6 +11,8 @@ var markerClusters;
 
 var svDBpedia = 'http://ja.dbpedia.org/sparql';
 var svSparqlEPCU = 'http://lodcu.cs.chubu.ac.jp/SparqlEPCU/api/taiga';
+var dbpedia_base = 'http://ja.dbpedia.org/resource/';
+var wikipedia_base = 'https://ja.wikipedia.org/wiki/';
 
 $(function(){
 
@@ -81,7 +83,9 @@ function showMap(nth, label, id){
     spiderfyDistanceMultiplier: 2
   });
   map.addLayer(markerClusters);
-  headerSpan.innerHTML = "大河巡礼－第" + nth + "作 " + label;
+  var wikipage = id.replace(dbpedia_base, wikipedia_base);
+  headerSpan.innerHTML = '大河巡礼－<a href="' + wikipage + 
+    '" target="_blank">第' + nth + '作 ' + label + '</a>';
   var sparql = 
     'SELECT DISTINCT ?uri WHERE {' +
     '<' + id + '> schema:actor ?o.' +
@@ -116,11 +120,11 @@ function showPoiA(uri){
   $.getJSON(svDBpedia, query, function(data){
     var list = data.results.bindings;
     for(i=0 ; i<list.length ; i++) {
-      var latlng = list[i].geo.value.split(" ");
-      var wikiname = list[i].page.value.replace("http://ja.dbpedia.org/resource/", "");
-      var wikipage = list[i].page.value.replace("http://ja.dbpedia.org/resource/", "https://ja.wikipedia.org/wiki/");
-      var fromname = uri.replace("http://ja.dbpedia.org/resource/", "");
-      var frompage = uri.replace("http://ja.dbpedia.org/resource/", "https://ja.wikipedia.org/wiki/");
+      var latlng = list[i].geo.value.split(' ');
+      var wikiname = list[i].page.value.replace(dbpedia_base, '');
+      var wikipage = list[i].page.value.replace(dbpedia_base, wikipedia_base);
+      var fromname = uri.replace(dbpedia_base, '');
+      var frompage = uri.replace(dbpedia_base, wikipedia_base);
       var abst = list[i].abst.value;
       marker = L.marker([latlng[0], latlng[1]], {
         icon : L.VectorMarkers.icon({icon: 'user', markerColor: '#AAF'}),
@@ -152,10 +156,10 @@ function showPoiB(uri){
   $.getJSON(svDBpedia, query, function(data){
     var list = data.results.bindings;
     for(i=0 ; i<list.length ; i++) {
-      var latlng = list[i].geo.value.split(" ");
-      var wikiname = list[i].page.value.replace("http://ja.dbpedia.org/resource/", "");
-      var wikipage = list[i].page.value.replace("http://ja.dbpedia.org/resource/", "https://ja.wikipedia.org/wiki/");
-      var fromname = uri.replace("http://ja.dbpedia.org/resource/", "");
+      var latlng = list[i].geo.value.split(' ');
+      var wikiname = list[i].page.value.replace(dbpedia_base, '');
+      var wikipage = list[i].page.value.replace(dbpedia_base, wikipedia_base);
+      var fromname = uri.replace(dbpedia_base, '');
       var abst = list[i].abst.value;
       marker = L.marker([latlng[0], latlng[1]], {
         icon : L.VectorMarkers.icon({icon: 'search', markerColor: '#AAF'}),
