@@ -66,11 +66,11 @@ $(function(){
   var req = $.getJSON(svSparqlEPCU, query, function(data){
     var list = data.results.bindings;
     for(i=0 ; i<list.length ; i++) {
-      titlelist.innerHTML +=
+      $('#titlelist').append(
         '<div id="title"><a onClick="showMap(\'' + list[i].nth.value + '\',\'' +
         list[i].label.value + '\',\'' + list[i].id.value + '\')">' +
         '第' + list[i].nth.value + '作 ' +
-        list[i].label.value + '</a></div>';
+        list[i].label.value + '</a></div>');
     }
   });
 });
@@ -84,8 +84,8 @@ function showMap(nth, label, id){
   });
   map.addLayer(markerClusters);
   var wikipage = id.replace(dbpedia_base, wikipedia_base);
-  headerSpan.innerHTML = '大河巡礼－<a href="' + wikipage + 
-    '" target="_blank">第' + nth + '作 ' + label + '</a>';
+  $('#headerSpan').html('大河巡礼－<a href="' + wikipage + 
+    '" target="_blank">第' + nth + '作 ' + label + '</a>');
   var sparql = 
     'SELECT DISTINCT ?uri WHERE {' +
     '<' + id + '> schema:actor ?o.' +
