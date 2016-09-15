@@ -101,6 +101,8 @@ function showMap(nth, label, id){
       showPoiA(list[i].uri.value);
       showPoiB(list[i].uri.value);
     }
+  }).error(function(jqXHR, textStatus, errorThrown) {
+    alert("SparqlEPCU 接続エラー");
   });
 }
 
@@ -137,6 +139,8 @@ function showPoiA(uri){
         abst.substr(0, abst.indexOf('。')+1) + 
         '（<a href="' + list[i].page.value + '" target="_blank">DBpedia</a>）</div>');
     }
+  }).error(function(jqXHR, textStatus, errorThrown) {
+    alert("DBpedia 接続エラー");
   });
 }
 
@@ -172,5 +176,7 @@ function showPoiB(uri){
         abst.substr(0, abst.indexOf('。')+1) + 
         '（<a href="' + list[i].page.value + '" target="_blank">DBpedia</a>）</div>');
     }
+  }).error(function(jqXHR, textStatus, errorThrown) {
+    alert("DBpedia 接続エラー");
   });
 }
