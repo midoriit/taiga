@@ -8,6 +8,7 @@ var gsiLayer;
 var zoom = 15;
 var markerLayer;
 var markerClusters;
+var error_flg = false;
 
 var svDBpedia = 'http://ja.dbpedia.org/sparql';
 var svSparqlEPCU = 'http://lodcu.cs.chubu.ac.jp/SparqlEPCU/api/taiga';
@@ -96,12 +97,13 @@ function showMap(nth, label, id){
     format: 'application/sparql-results+json'
   };
   $.getJSON(svSparqlEPCU, query, function(data){
+    error_flg = false;
     var list = data.results.bindings;
     for(i=0 ; i<list.length ; i++) {
       showPoiA(list[i].uri.value);
       showPoiB(list[i].uri.value);
     }
-  }).error(function(jqXHR, textStatus, errorThrown) {
+  }).error(function() {
     alert("SparqlEPCU 接続エラー");
   });
 }
@@ -139,8 +141,13 @@ function showPoiA(uri){
         abst.substr(0, abst.indexOf('。')+1) + 
         '（<a href="' + list[i].page.value + '" target="_blank">DBpedia</a>）</div>');
     }
-  }).error(function(jqXHR, textStatus, errorThrown) {
-    alert("DBpedia 接続エラー");
+  }).error(function() {
+    if (!error_flg) {
+      error_flg = true;
+      alert("DBpedia 接続エラー");
+    }
+  }).success(function() {
+      error_flg = false;
   });
 }
 
@@ -176,7 +183,12 @@ function showPoiB(uri){
         abst.substr(0, abst.indexOf('。')+1) + 
         '（<a href="' + list[i].page.value + '" target="_blank">DBpedia</a>）</div>');
     }
-  }).error(function(jqXHR, textStatus, errorThrown) {
-    alert("DBpedia 接続エラー");
+  }).error(function() {
+    if (!error_flg) {
+      error_flg = true;
+      alert("DBpedia 接続エラー");
+    }
+  }).success(function() {
+      error_flg = false;
   });
 }
