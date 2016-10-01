@@ -18,7 +18,7 @@ var wikipedia_base = 'https://ja.wikipedia.org/wiki/';
 $(function(){
 
   $.ajaxSetup({
-    timeout: 6000
+    timeout: 15000
   });
 
   // 地理院地図
