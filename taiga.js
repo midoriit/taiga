@@ -73,6 +73,8 @@ $(function(){
         '第' + list[i].nth.value + '作 ' +
         list[i].label.value + '</a></div>');
     }
+  }).error(function() {
+    alert("SparqlEPCU 接続エラー");
   });
 });
 
