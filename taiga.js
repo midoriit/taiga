@@ -88,7 +88,7 @@ function showMap(nth, label, id, url){
     if (!ok) {
       alert('RDF取得エラー');
     } else {
-      var roleNames = store.statementsMatching(undefined, $rdf.sym('http://schema.org/roleName'), undefined)
+      var roleNames = store.statementsMatching(undefined, $rdf.sym('http://schema.org/roleName'), undefined);
       var uris = [];
       for (var i=0; i<roleNames.length; i++) {
         if( uris.indexOf(roleNames[i].object.uri) < 0 ) {
