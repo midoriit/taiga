@@ -59,7 +59,7 @@ $(function(){
     for(i=0 ; i<list.length ; i++) {
       $('#titlelist').append(
         '<div id="title"><a onClick="showMap(\'' + list[i].nth + '\',\'' +
-        list[i].label + '\',\'' + list[i].id + '\')">' +
+        list[i].label + '\',\'' + list[i].id + '\',\'' + list[i].url + '\')">' +
         '第' + list[i].nth + '作 ' +
         list[i].label + '</a></div>');
     }
@@ -68,7 +68,7 @@ $(function(){
   });
 });
 
-function showMap(nth, label, id){
+function showMap(nth, label, id, url){
   map.removeLayer(markerClusters);
   markerClusters = new L.markerClusterGroup({
     showCoverageOnHover: false,
@@ -84,7 +84,7 @@ function showMap(nth, label, id){
   var timeout = 5000;
   var fetcher = new $rdf.Fetcher(store, timeout);
 
-  fetcher.nowOrWhenFetched('/data/' + nth + '.rdf', function(ok, body, xhr) {
+  fetcher.nowOrWhenFetched(url, function(ok, body, xhr) {
     if (!ok) {
       alert('RDF取得エラー');
     } else {
