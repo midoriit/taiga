@@ -11,7 +11,6 @@ var markerClusters;
 var error_flg = false;
 
 var svDBpedia = 'http://ja.dbpedia.org/sparql';
-var svSparqlEPCU = 'http://lodcu.cs.chubu.ac.jp/SparqlEPCU/api/taiga';
 var dbpedia_base = 'http://ja.dbpedia.org/resource/';
 var wikipedia_base = 'https://ja.wikipedia.org/wiki/';
 
@@ -55,26 +54,17 @@ $(function(){
       position:  'topleft'
     }).addTo(map);
 
-  var sparql = 
-    'SELECT DISTINCT ?id ?nth ?label where {' +
-    '?id schema:numberOfSeasons ?nth;' +
-    'rdfs:label ?label.' +
-    '} ORDER BY DESC(?nth)';
-  var query = {
-    query : sparql,
-    format: 'application/sparql-results+json'
-  };
-  var req = $.getJSON(svSparqlEPCU, query, function(data){
-    var list = data.results.bindings;
+  var req = $.getJSON('/data/taiga.json', function(data){
+    list = data.work;
     for(i=0 ; i<list.length ; i++) {
       $('#titlelist').append(
-        '<div id="title"><a onClick="showMap(\'' + list[i].nth.value + '\',\'' +
-        list[i].label.value + '\',\'' + list[i].id.value + '\')">' +
-        '第' + list[i].nth.value + '作 ' +
-        list[i].label.value + '</a></div>');
+        '<div id="title"><a onClick="showMap(\'' + list[i].nth + '\',\'' +
+        list[i].label + '\',\'' + list[i].id + '\')">' +
+        '第' + list[i].nth + '作 ' +
+        list[i].label + '</a></div>');
     }
-  }).error(function() {
-    alert("SparqlEPCU 接続エラー");
+  }).fail(function(xhr, textStatus, errorThrown) {
+    alert('taiga.json取得エラー : ' + errorThrown);
   });
 });
 
@@ -89,25 +79,28 @@ function showMap(nth, label, id){
   var wikipage = id.replace(dbpedia_base, wikipedia_base);
   $('#headerSpan').html('大河巡礼－<a href="' + wikipage + 
     '" target="_blank">第' + nth + '作 ' + label + '</a>');
-  var sparql = 
-    'SELECT DISTINCT ?uri WHERE {' +
-    '<' + id + '> schema:actor ?o.' +
-    '?o schema:roleName ?uri.' +
-    '}';
-  var query = {
-    query : sparql,
-    format: 'application/sparql-results+json'
-  };
-  $.getJSON(svSparqlEPCU, query, function(data){
-    error_flg = false;
-    var list = data.results.bindings;
-    for(i=0 ; i<list.length ; i++) {
-      showPoiA(list[i].uri.value);
-      showPoiB(list[i].uri.value);
+
+  var store = $rdf.graph();
+  var timeout = 5000;
+  var fetcher = new $rdf.Fetcher(store, timeout);
+
+  fetcher.nowOrWhenFetched('/data/' + nth + '.rdf', function(ok, body, xhr) {
+    if (!ok) {
+      alert('RDF取得エラー');
+    } else {
+      var roleNames = store.statementsMatching(undefined, $rdf.sym('http://schema.org/roleName'), undefined)
+      var uris = [];
+      for (var i=0; i<roleNames.length; i++) {
+        if( uris.indexOf(roleNames[i].object.uri) < 0 ) {
+          uris.push(roleNames[i].object.uri);
+        }
+      }
+      for (var i=0; i<uris.length; i++) {
+        showPoiA(uris[i]);
+        showPoiB(uris[i]);
+      }
     }
-  }).error(function() {
-    alert("SparqlEPCU 接続エラー");
-  });
+  })
 }
 
 // 人物からリンクしている地物
